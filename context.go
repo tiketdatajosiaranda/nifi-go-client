@@ -31,6 +31,7 @@ type Context struct {
 	Access       *Access
 	Flow         *Flow
 	ProcessGroup *ProcessGroup
+	Processor    *Processor
 	Template     *Template
 }
 
@@ -44,6 +45,7 @@ func NewContext(s string) (*Context, error) {
 	ctx.Access = &Access{context: ctx}
 	ctx.Flow = &Flow{context: ctx}
 	ctx.ProcessGroup = &ProcessGroup{context: ctx}
+	ctx.Processor = &Processor{context: ctx}
 	ctx.Template = &Template{context: ctx}
 	return ctx, err
 }
