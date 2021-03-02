@@ -32,7 +32,7 @@ type Context struct {
 	Flow         *Flow
 	ProcessGroup *ProcessGroup
 	Processor    *Processor
-	Template     *Template
+	Version      *Version
 }
 
 func NewContext(s string) (*Context, error) {
@@ -46,7 +46,7 @@ func NewContext(s string) (*Context, error) {
 	ctx.Flow = &Flow{context: ctx}
 	ctx.ProcessGroup = &ProcessGroup{context: ctx}
 	ctx.Processor = &Processor{context: ctx}
-	ctx.Template = &Template{context: ctx}
+	ctx.Version = &Version{context: ctx}
 	return ctx, err
 }
 
