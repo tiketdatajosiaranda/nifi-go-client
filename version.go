@@ -74,3 +74,19 @@ func (v *Version) DeleteUpdateRequest(updateRequestID string) (*models.Versioned
 
 	return &result, nil
 }
+
+func (v *Version) StopVersionProcessGroup(processGroupID string, version int64) (*models.VersionControlInformationEntity, error) {
+	const relURL = "/nifi-api/versions/process-groups/%s?disconnectedNodeAcknowledged=false&version=%d"
+	raw, err := v.context.deleteRequest(fmt.Sprintf(relURL, processGroupID, version), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.VersionControlInformationEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
