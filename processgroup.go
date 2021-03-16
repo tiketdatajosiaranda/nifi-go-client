@@ -186,3 +186,19 @@ func (p *ProcessGroup) CreateConnection(processGroupID string, body *models.Conn
 
 	return &result, nil
 }
+
+func (p *ProcessGroup) GetVariableRegistry(processGroupID string) (*models.VariableRegistryEntity, error) {
+	const relURL = "/nifi-api/process-groups/%s/variable-registry"
+	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.VariableRegistryEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
