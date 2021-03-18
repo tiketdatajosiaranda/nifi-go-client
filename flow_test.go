@@ -1,6 +1,8 @@
 package nifi
 
 import (
+	"encoding/json"
+	"fmt"
 	"testing"
 )
 
@@ -134,4 +136,25 @@ func TestFlow_ListFlowVersions(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+}
+
+func TestFlow_ListProcessGroupProcessors(t *testing.T) {
+	ctx, err := NewContext(nifiHost)
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = ctx.Access.NewLogin(nifiUsername, nifiPassword)
+	if err != nil {
+		t.Error(err)
+	}
+
+	// TEST JOSI PG: a4e53fa7-ace9-10d2-ffff-ffffe93bb3a1
+	p, err := ctx.Flow.ListProcessGroupProcessors("a4e53fa7-ace9-10d2-ffff-ffffe93bb3a1")
+	if err != nil {
+		t.Error(err)
+	}
+
+	raw, _ := json.MarshalIndent(p, "", "  ")
+	fmt.Println(string(raw))
 }

@@ -23,4 +23,3 @@ func TestProcessor_GetProcessor(t *testing.T) {
 		t.Error(err)
 	}
 }
-
