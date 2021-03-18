@@ -2,6 +2,7 @@ package nifi
 
 import (
 	"fmt"
+	"github.com/enriquebris/goconcurrentqueue"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/tiketdatarisal/nifi-go-client/models"
 	"net/http"
@@ -121,4 +122,42 @@ func (f *Flow) ListFlowVersions(registryID, bucketID, flowID string) (*models.Ve
 	}
 
 	return &result, nil
+}
+
+func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.ProcessorsEntity, error) {
+	pgQueue := goconcurrentqueue.NewFIFO()
+	_ = pgQueue.Enqueue(processGroupID)
+
+	processors := map[string]*models.ProcessorEntity{}
+	for {
+		if pgQueue.GetLen() == 0 {
+			break
+		}
+
+		id, err := pgQueue.Dequeue()
+		if err != nil {
+			continue
+		}
+
+		m, err := f.GetProcessGroup(fmt.Sprintf("%s", id))
+		if err != nil {
+			return nil, err
+		}
+
+		for _, p := range m.ProcessGroupFlow.Flow.Processors {
+			if _, ok := processors[p.Id]; !ok {
+				processors[p.Id] = &p
+			}
+		}
+
+		for _, pg := range m.ProcessGroupFlow.Flow.ProcessGroups {
+			_ = pgQueue.Enqueue(pg.Id)
+		}
+	}
+
+	procs := models.ProcessorsEntity{}
+	for _, p := range processors {
+		procs.Processors = append(procs.Processors, *p)
+	}
+	return &procs, nil
 }
