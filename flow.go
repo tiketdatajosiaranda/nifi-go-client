@@ -155,9 +155,9 @@ func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.Proces
 		}
 	}
 
-	procs := models.ProcessorsEntity{}
+	ps := models.ProcessorsEntity{}
 	for _, p := range processors {
-		procs.Processors = append(procs.Processors, *p)
+		ps.Processors = append(ps.Processors, *p)
 	}
-	return &procs, nil
+	return &ps, nil
 }
