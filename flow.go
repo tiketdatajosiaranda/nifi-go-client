@@ -128,7 +128,7 @@ func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.Proces
 	pgQueue := goconcurrentqueue.NewFIFO()
 	_ = pgQueue.Enqueue(processGroupID)
 
-	processors := map[string]*models.ProcessorEntity{}
+	processors := map[string]models.ProcessorEntity{}
 	for {
 		if pgQueue.GetLen() == 0 {
 			break
@@ -145,8 +145,8 @@ func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.Proces
 		}
 
 		for _, p := range m.ProcessGroupFlow.Flow.Processors {
-			if _, ok := processors[p.Id]; !ok {
-				processors[p.Id] = &p
+			if _, ok := processors[p.Component.Id]; !ok {
+				processors[p.Component.Id] = p
 			}
 		}
 
@@ -157,7 +157,7 @@ func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.Proces
 
 	ps := models.ProcessorsEntity{}
 	for _, p := range processors {
-		ps.Processors = append(ps.Processors, *p)
+		ps.Processors = append(ps.Processors, p)
 	}
 	return &ps, nil
 }
