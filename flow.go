@@ -161,3 +161,19 @@ func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.Proces
 	}
 	return &ps, nil
 }
+
+func (f *Flow) ListControllerServices(processGroupID string) (*models.ControllerServicesEntity, error) {
+	const relURL = "/nifi-api/flow/process-groups/%s/controller-services"
+	raw, err := f.context.getRequest(fmt.Sprintf(relURL, processGroupID))
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.ControllerServicesEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
