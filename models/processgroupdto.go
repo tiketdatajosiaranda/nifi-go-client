@@ -16,16 +16,16 @@ type ProcessGroupDto struct {
 	// The ID of the corresponding component that is under version control
 	VersionedComponentId string `json:"versionedComponentId,omitempty"`
 	// The id of parent process group of this component if applicable.
-	ParentGroupId string      `json:"parentGroupId,omitempty"`
-	Position      PositionDto `json:"position,omitempty"`
+	ParentGroupId string       `json:"parentGroupId,omitempty"`
+	Position      *PositionDto `json:"position,omitempty"`
 	// The name of the process group.
 	Name string `json:"name,omitempty"`
 	// The comments for the process group.
 	Comments string `json:"comments,omitempty"`
 	// The variables that are configured for the Process Group. Note that this map contains only those variables that are defined on this Process Group and not any variables that are defined in the parent Process Group, etc. I.e., this Map will not contain all variables that are accessible by components in this Process Group by rather only the variables that are defined for this Process Group itself.
-	Variables                 map[string]string               `json:"variables,omitempty"`
-	VersionControlInformation VersionControlInformationDto    `json:"versionControlInformation,omitempty"`
-	ParameterContext          ParameterContextReferenceEntity `json:"parameterContext,omitempty"`
+	Variables                 map[string]string                `json:"variables,omitempty"`
+	VersionControlInformation *VersionControlInformationDto    `json:"versionControlInformation,omitempty"`
+	ParameterContext          *ParameterContextReferenceEntity `json:"parameterContext,omitempty"`
 	// The FlowFile Concurrency for this Process Group.
 	FlowfileConcurrency string `json:"flowfileConcurrency,omitempty"`
 	// The Oubound Policy that is used for determining how FlowFiles should be transferred out of the Process Group.
@@ -59,8 +59,8 @@ type ProcessGroupDto struct {
 	// The number of public input ports in the process group.
 	PublicInputPortCount int32 `json:"publicInputPortCount,omitempty"`
 	// The number of public output ports in the process group.
-	PublicOutputPortCount int32          `json:"publicOutputPortCount,omitempty"`
-	Contents              FlowSnippetDto `json:"contents,omitempty"`
+	PublicOutputPortCount int32           `json:"publicOutputPortCount,omitempty"`
+	Contents              *FlowSnippetDto `json:"contents,omitempty"`
 	// The number of input ports in the process group.
 	InputPortCount int32 `json:"inputPortCount,omitempty"`
 	// The number of output ports in the process group.

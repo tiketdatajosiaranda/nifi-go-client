@@ -36,7 +36,7 @@ type VersionedProcessGroup struct {
 	Funnels []VersionedFunnel `json:"funnels,omitempty"`
 	// The Controller Services
 	ControllerServices       []VersionedControllerService `json:"controllerServices,omitempty"`
-	VersionedFlowCoordinates VersionedFlowCoordinates     `json:"versionedFlowCoordinates,omitempty"`
+	VersionedFlowCoordinates *VersionedFlowCoordinates    `json:"versionedFlowCoordinates,omitempty"`
 	// The Variables in the Variable Registry for this Process Group (not including any ancestor or descendant Process Groups)
 	Variables map[string]string `json:"variables,omitempty"`
 	// The name of the parameter context used by this process group

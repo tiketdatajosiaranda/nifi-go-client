@@ -6,7 +6,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"net/http"
 	"net/url"
-	"path"
+	"strings"
 )
 
 const (
@@ -68,8 +68,16 @@ func (c *Context) GetURL(p string) (string, error) {
 		return "", err
 	}
 
-	u.Path = path.Join(u.Path, p)
-	return u.String(), err
+	b := u.String()
+	if strings.HasSuffix(b, "/") {
+		b = strings.TrimSuffix(b,"/")
+	}
+
+	if strings.HasPrefix(p, "/") {
+		p = strings.TrimPrefix(p, "/")
+	}
+
+	return fmt.Sprintf("%s/%s", b, p), err
 }
 
 func (c *Context) getRequest(relURL string) ([]byte, error) {
@@ -178,6 +186,7 @@ func (c *Context) deleteRequest(relURL string, body interface{}) ([]byte, error)
 	if body != nil {
 		res, err = c.client.R().SetHeader(contentTypeHeader, contentTypeJson).SetBody(body).Delete(u)
 	} else {
+		fmt.Println(u)
 		res, err = c.client.R().SetHeader(contentTypeHeader, contentTypeJson).Delete(u)
 	}
 	if err != nil {

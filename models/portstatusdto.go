@@ -22,8 +22,8 @@ type PortStatusDto struct {
 	// The run status of the port.
 	RunStatus string `json:"runStatus,omitempty"`
 	// The time the status for the process group was last refreshed.
-	StatsLastRefreshed string                `json:"statsLastRefreshed,omitempty"`
-	AggregateSnapshot  PortStatusSnapshotDto `json:"aggregateSnapshot,omitempty"`
+	StatsLastRefreshed string                 `json:"statsLastRefreshed,omitempty"`
+	AggregateSnapshot  *PortStatusSnapshotDto `json:"aggregateSnapshot,omitempty"`
 	// A status snapshot for each node in the cluster. If the NiFi instance is a standalone instance, rather than a cluster, this may be null.
 	NodeSnapshots []NodePortStatusSnapshotDto `json:"nodeSnapshots,omitempty"`
 }
