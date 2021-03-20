@@ -11,21 +11,21 @@ package models
 
 // PortEntity struct for PortEntity
 type PortEntity struct {
-	Revision RevisionDto `json:"revision,omitempty"`
+	Revision *RevisionDto `json:"revision,omitempty"`
 	// The id of the component.
 	Id string `json:"id,omitempty"`
 	// The URI for futures requests to the component.
-	Uri         string         `json:"uri,omitempty"`
-	Position    PositionDto    `json:"position,omitempty"`
-	Permissions PermissionsDto `json:"permissions,omitempty"`
+	Uri         string          `json:"uri,omitempty"`
+	Position    *PositionDto    `json:"position,omitempty"`
+	Permissions *PermissionsDto `json:"permissions,omitempty"`
 	// The bulletins for this component.
 	Bulletins []BulletinEntity `json:"bulletins,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.
-	DisconnectedNodeAcknowledged bool           `json:"disconnectedNodeAcknowledged,omitempty"`
-	Component                    PortDto        `json:"component,omitempty"`
-	Status                       PortStatusDto  `json:"status,omitempty"`
-	PortType                     string         `json:"portType,omitempty"`
-	OperatePermissions           PermissionsDto `json:"operatePermissions,omitempty"`
+	DisconnectedNodeAcknowledged bool            `json:"disconnectedNodeAcknowledged,omitempty"`
+	Component                    *PortDto        `json:"component,omitempty"`
+	Status                       *PortStatusDto  `json:"status,omitempty"`
+	PortType                     string          `json:"portType,omitempty"`
+	OperatePermissions           *PermissionsDto `json:"operatePermissions,omitempty"`
 	// Whether this port can be accessed remotely via Site-to-Site protocol.
 	AllowRemoteAccess bool `json:"allowRemoteAccess,omitempty"`
 }

@@ -16,8 +16,8 @@ type ProcessGroupStatusDto struct {
 	// The name of the Process Group
 	Name string `json:"name,omitempty"`
 	// The time the status for the process group was last refreshed.
-	StatsLastRefreshed string                        `json:"statsLastRefreshed,omitempty"`
-	AggregateSnapshot  ProcessGroupStatusSnapshotDto `json:"aggregateSnapshot,omitempty"`
+	StatsLastRefreshed string                         `json:"statsLastRefreshed,omitempty"`
+	AggregateSnapshot  *ProcessGroupStatusSnapshotDto `json:"aggregateSnapshot,omitempty"`
 	// The status reported by each node in the cluster. If the NiFi instance is a standalone instance, rather than a clustered instance, this value may be null.
 	NodeSnapshots []NodeProcessGroupStatusSnapshotDto `json:"nodeSnapshots,omitempty"`
 }

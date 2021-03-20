@@ -11,20 +11,20 @@ package models
 
 // ProcessGroupEntity struct for ProcessGroupEntity
 type ProcessGroupEntity struct {
-	Revision RevisionDto `json:"revision,omitempty"`
+	Revision *RevisionDto `json:"revision,omitempty"`
 	// The id of the component.
 	Id string `json:"id,omitempty"`
 	// The URI for futures requests to the component.
-	Uri         string         `json:"uri,omitempty"`
-	Position    PositionDto    `json:"position,omitempty"`
-	Permissions PermissionsDto `json:"permissions,omitempty"`
+	Uri         string          `json:"uri,omitempty"`
+	Position    *PositionDto    `json:"position,omitempty"`
+	Permissions *PermissionsDto `json:"permissions,omitempty"`
 	// The bulletins for this component.
 	Bulletins []BulletinEntity `json:"bulletins,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.
-	DisconnectedNodeAcknowledged bool                  `json:"disconnectedNodeAcknowledged,omitempty"`
-	Component                    ProcessGroupDto       `json:"component,omitempty"`
-	Status                       ProcessGroupStatusDto `json:"status,omitempty"`
-	VersionedFlowSnapshot        VersionedFlowSnapshot `json:"versionedFlowSnapshot,omitempty"`
+	DisconnectedNodeAcknowledged bool                   `json:"disconnectedNodeAcknowledged,omitempty"`
+	Component                    *ProcessGroupDto       `json:"component,omitempty"`
+	Status                       *ProcessGroupStatusDto `json:"status,omitempty"`
+	VersionedFlowSnapshot        *VersionedFlowSnapshot `json:"versionedFlowSnapshot,omitempty"`
 	// The number of running components in this process group.
 	RunningCount int32 `json:"runningCount,omitempty"`
 	// The number of stopped components in the process group.
@@ -56,8 +56,8 @@ type ProcessGroupEntity struct {
 	// The number of public input ports in the process group.
 	PublicInputPortCount int32 `json:"publicInputPortCount,omitempty"`
 	// The number of public output ports in the process group.
-	PublicOutputPortCount int32                           `json:"publicOutputPortCount,omitempty"`
-	ParameterContext      ParameterContextReferenceEntity `json:"parameterContext,omitempty"`
+	PublicOutputPortCount int32                            `json:"publicOutputPortCount,omitempty"`
+	ParameterContext      *ParameterContextReferenceEntity `json:"parameterContext,omitempty"`
 	// The number of input ports in the process group.
 	InputPortCount int32 `json:"inputPortCount,omitempty"`
 	// The number of output ports in the process group.

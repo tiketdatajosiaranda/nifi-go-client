@@ -16,8 +16,8 @@ type PortDto struct {
 	// The ID of the corresponding component that is under version control
 	VersionedComponentId string `json:"versionedComponentId,omitempty"`
 	// The id of parent process group of this component if applicable.
-	ParentGroupId string      `json:"parentGroupId,omitempty"`
-	Position      PositionDto `json:"position,omitempty"`
+	ParentGroupId string       `json:"parentGroupId,omitempty"`
+	Position      *PositionDto `json:"position,omitempty"`
 	// The name of the port.
 	Name string `json:"name,omitempty"`
 	// The comments for the port.

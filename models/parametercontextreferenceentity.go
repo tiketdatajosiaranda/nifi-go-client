@@ -13,6 +13,6 @@ package models
 type ParameterContextReferenceEntity struct {
 	// The id of the component.
 	Id          string                       `json:"id,omitempty"`
-	Permissions PermissionsDto               `json:"permissions,omitempty"`
-	Component   ParameterContextReferenceDto `json:"component,omitempty"`
+	Permissions *PermissionsDto               `json:"permissions,omitempty"`
+	Component   *ParameterContextReferenceDto `json:"component,omitempty"`
 }

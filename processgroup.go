@@ -76,7 +76,7 @@ func (p *ProcessGroup) UpdateProcessGroup(processGroupID string, body *models.Pr
 }
 
 func (p *ProcessGroup) DeleteProcessGroup(processGroupID string, version int64) (*models.ProcessGroupEntity, error) {
-	const relURL = "/nifi-api/process-groups/%s?version=%d"
+	const relURL = "/nifi-api/process-groups/%s?version=%d&disconnectedNodeAcknowledged=false"
 	raw, err := p.context.deleteRequest(fmt.Sprintf(relURL, processGroupID, version), nil)
 	if err != nil {
 		return nil, err
