@@ -22,8 +22,8 @@ type ProcessorStatusDto struct {
 	// The run status of the Processor
 	RunStatus string `json:"runStatus,omitempty"`
 	// The timestamp of when the stats were last refreshed
-	StatsLastRefreshed string                     `json:"statsLastRefreshed,omitempty"`
-	AggregateSnapshot  ProcessorStatusSnapshotDto `json:"aggregateSnapshot,omitempty"`
+	StatsLastRefreshed string                      `json:"statsLastRefreshed,omitempty"`
+	AggregateSnapshot  *ProcessorStatusSnapshotDto `json:"aggregateSnapshot,omitempty"`
 	// A status snapshot for each node in the cluster. If the NiFi instance is a standalone instance, rather than a cluster, this may be null.
 	NodeSnapshots []NodeProcessorStatusSnapshotDto `json:"nodeSnapshots,omitempty"`
 }
