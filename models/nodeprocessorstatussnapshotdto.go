@@ -16,6 +16,6 @@ type NodeProcessorStatusSnapshotDto struct {
 	// The API address of the node
 	Address string `json:"address,omitempty"`
 	// The API port used to communicate with the node
-	ApiPort        int32                      `json:"apiPort,omitempty"`
-	StatusSnapshot ProcessorStatusSnapshotDto `json:"statusSnapshot,omitempty"`
+	ApiPort        int32                       `json:"apiPort,omitempty"`
+	StatusSnapshot *ProcessorStatusSnapshotDto `json:"statusSnapshot,omitempty"`
 }

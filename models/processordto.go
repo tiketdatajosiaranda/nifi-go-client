@@ -16,13 +16,13 @@ type ProcessorDto struct {
 	// The ID of the corresponding component that is under version control
 	VersionedComponentId string `json:"versionedComponentId,omitempty"`
 	// The id of parent process group of this component if applicable.
-	ParentGroupId string      `json:"parentGroupId,omitempty"`
-	Position      PositionDto `json:"position,omitempty"`
+	ParentGroupId string       `json:"parentGroupId,omitempty"`
+	Position      *PositionDto `json:"position,omitempty"`
 	// The name of the processor.
 	Name string `json:"name,omitempty"`
 	// The type of the processor.
-	Type   string    `json:"type,omitempty"`
-	Bundle BundleDto `json:"bundle,omitempty"`
+	Type   string     `json:"type,omitempty"`
+	Bundle *BundleDto `json:"bundle,omitempty"`
 	// The state of the processor
 	State string `json:"state,omitempty"`
 	// Styles for the processor (background-color : #eee).
@@ -48,8 +48,8 @@ type ProcessorDto struct {
 	// Whether the processor has multiple versions available.
 	MultipleVersionsAvailable bool `json:"multipleVersionsAvailable,omitempty"`
 	// The input requirement for this processor.
-	InputRequirement string             `json:"inputRequirement,omitempty"`
-	Config           ProcessorConfigDto `json:"config,omitempty"`
+	InputRequirement string              `json:"inputRequirement,omitempty"`
+	Config           *ProcessorConfigDto `json:"config,omitempty"`
 	// The validation errors for the processor. These validation errors represent the problems with the processor that must be resolved before it can be started.
 	ValidationErrors []string `json:"validationErrors,omitempty"`
 	// Indicates whether the Processor is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Processor is valid)

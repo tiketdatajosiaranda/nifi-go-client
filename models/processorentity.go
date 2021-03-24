@@ -11,20 +11,20 @@ package models
 
 // ProcessorEntity struct for ProcessorEntity
 type ProcessorEntity struct {
-	Revision RevisionDto `json:"revision,omitempty"`
+	Revision *RevisionDto `json:"revision,omitempty"`
 	// The id of the component.
 	Id string `json:"id,omitempty"`
 	// The URI for futures requests to the component.
-	Uri         string         `json:"uri,omitempty"`
-	Position    PositionDto    `json:"position,omitempty"`
-	Permissions PermissionsDto `json:"permissions,omitempty"`
+	Uri         string          `json:"uri,omitempty"`
+	Position    *PositionDto    `json:"position,omitempty"`
+	Permissions *PermissionsDto `json:"permissions,omitempty"`
 	// The bulletins for this component.
 	Bulletins []BulletinEntity `json:"bulletins,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.
-	DisconnectedNodeAcknowledged bool         `json:"disconnectedNodeAcknowledged,omitempty"`
-	Component                    ProcessorDto `json:"component,omitempty"`
+	DisconnectedNodeAcknowledged bool          `json:"disconnectedNodeAcknowledged,omitempty"`
+	Component                    *ProcessorDto `json:"component,omitempty"`
 	// The input requirement for this processor.
-	InputRequirement   string             `json:"inputRequirement,omitempty"`
-	Status             ProcessorStatusDto `json:"status,omitempty"`
-	OperatePermissions PermissionsDto     `json:"operatePermissions,omitempty"`
+	InputRequirement   string              `json:"inputRequirement,omitempty"`
+	Status             *ProcessorStatusDto `json:"status,omitempty"`
+	OperatePermissions *PermissionsDto     `json:"operatePermissions,omitempty"`
 }

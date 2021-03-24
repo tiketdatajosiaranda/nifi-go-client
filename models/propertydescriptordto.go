@@ -32,6 +32,6 @@ type PropertyDescriptorDto struct {
 	// Scope of the Expression Language evaluation for the property.
 	ExpressionLanguageScope string `json:"expressionLanguageScope,omitempty"`
 	// If the property identifies a controller service this returns the fully qualified type.
-	IdentifiesControllerService       string    `json:"identifiesControllerService,omitempty"`
-	IdentifiesControllerServiceBundle BundleDto `json:"identifiesControllerServiceBundle,omitempty"`
+	IdentifiesControllerService       string     `json:"identifiesControllerService,omitempty"`
+	IdentifiesControllerServiceBundle *BundleDto `json:"identifiesControllerServiceBundle,omitempty"`
 }
