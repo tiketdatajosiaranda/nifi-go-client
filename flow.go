@@ -8,10 +8,13 @@ import (
 	"net/http"
 )
 
+// Flow Get the data flow, Obtain component status, Query history.
 type Flow struct {
 	context *Context
 }
 
+// ListTemplates Gets all templates.
+// GET /flow/templates
 func (f *Flow) ListTemplates() (*models.TemplatesEntity, error) {
 	const relURL = "/nifi-api/flow/templates"
 	raw, err := f.context.getRequest(relURL)
@@ -28,6 +31,8 @@ func (f *Flow) ListTemplates() (*models.TemplatesEntity, error) {
 	return &result, nil
 }
 
+// GetProcessGroup Gets a process group.
+// GET /flow/process-groups/{processGroupID}
 func (f *Flow) GetProcessGroup(processGroupID string) (*models.ProcessGroupFlowEntity, error) {
 	const relURL = "/nifi-api/flow/process-groups/%s"
 	raw, err := f.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -44,6 +49,8 @@ func (f *Flow) GetProcessGroup(processGroupID string) (*models.ProcessGroupFlowE
 	return &result, nil
 }
 
+// ToggleScheduleComponents Schedule or un-schedule components in the specified Process Group.
+// PUT /flow/process-groups/{processGroupID}
 func (f *Flow) ToggleScheduleComponents(processGroupID string, body *models.ScheduleComponentsEntity) (*models.ScheduleComponentsEntity, error) {
 	const relURL = "/nifi-api/flow/process-groups/%s"
 	raw, err := f.context.putRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -60,6 +67,8 @@ func (f *Flow) ToggleScheduleComponents(processGroupID string, body *models.Sche
 	return &result, nil
 }
 
+// ListRegistries Gets the listing of available registries.
+// GET /flow/registries
 func (f *Flow) ListRegistries() (*models.RegistryClientsEntity, error) {
 	const relURL = "/nifi-api/flow/registries"
 	raw, err := f.context.getRequest(relURL)
@@ -76,6 +85,8 @@ func (f *Flow) ListRegistries() (*models.RegistryClientsEntity, error) {
 	return &result, nil
 }
 
+// ListBuckets Gets the buckets from the specified registry for the current user.
+// GET /flow/registries/{registryID}/buckets
 func (f *Flow) ListBuckets(registryID string) (*models.BucketsEntity, error) {
 	const relURL = "/nifi-api/flow/registries/%s/buckets"
 	raw, err := f.context.getRequest(fmt.Sprintf(relURL, registryID))
@@ -92,6 +103,8 @@ func (f *Flow) ListBuckets(registryID string) (*models.BucketsEntity, error) {
 	return &result, nil
 }
 
+// ListFlows Gets the flows from the specified registry and bucket for the current user.
+// GET /flow/registries/{registryID}/buckets/{bucketID}/flows
 func (f *Flow) ListFlows(registryID, bucketID string) (*models.VersionedFlowsEntity, error) {
 	const relURL = "/nifi-api/flow/registries/%s/buckets/%s/flows"
 	raw, err := f.context.getRequest(fmt.Sprintf(relURL, registryID, bucketID))
@@ -108,6 +121,8 @@ func (f *Flow) ListFlows(registryID, bucketID string) (*models.VersionedFlowsEnt
 	return &result, nil
 }
 
+// ListFlowVersions Gets the flow versions from the specified registry and bucket for the specified flow for the current user.
+// GET /flow/registries/{registryID}/buckets/{bucketID}/flows/{flowID}/versions
 func (f *Flow) ListFlowVersions(registryID, bucketID, flowID string) (*models.VersionedFlowSnapshotMetadataSetEntity, error) {
 	const relURL = "/nifi-api/flow/registries/%s/buckets/%s/flows/%s/versions"
 	raw, err := f.context.getRequest(fmt.Sprintf(relURL, registryID, bucketID, flowID))
@@ -124,6 +139,8 @@ func (f *Flow) ListFlowVersions(registryID, bucketID, flowID string) (*models.Ve
 	return &result, nil
 }
 
+// ListProcessGroupProcessors Gets a list of process group processors.
+// Function will try to iterate all processors at process group ID.
 func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.ProcessorsEntity, error) {
 	pgQueue := goconcurrentqueue.NewFIFO()
 	_ = pgQueue.Enqueue(processGroupID)
@@ -162,6 +179,8 @@ func (f *Flow) ListProcessGroupProcessors(processGroupID string) (*models.Proces
 	return &ps, nil
 }
 
+// ListControllerServices Gets all controller services.
+// GET /flow/process-groups/{processGroupID}/controller-services
 func (f *Flow) ListControllerServices(processGroupID string) (*models.ControllerServicesEntity, error) {
 	const relURL = "/nifi-api/flow/process-groups/%s/controller-services"
 	raw, err := f.context.getRequest(fmt.Sprintf(relURL, processGroupID))

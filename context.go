@@ -22,19 +22,37 @@ const (
 	failedMarshalError = "failed to marshal object"
 )
 
+// Context Provides an access to Nifi Rest Api.
+// The Rest Api provides programmatic access to command and control a NiFi instance in real time.
+// Start and stop processors, monitor queues, query provenance data, and more.
+// Each endpoint below includes a description, definitions of the expected input and output, potential response codes, and the authorizations required to invoke each service.
 type Context struct {
-	client       *resty.Client
-	baseURL      string
-	userName     string
-	password     string
-	token        string
-	Access       *Access
-	Flow         *Flow
+	client   *resty.Client
+	baseURL  string
+	userName string
+	password string
+	token    string
+
+	// Access User authentication and token endpoints.
+	Access *Access
+
+	// Flow Get the data flow, Obtain component status, Query history.
+	Flow *Flow
+
+	// ProcessGroup Create components, Instantiate a template, Upload a template.
 	ProcessGroup *ProcessGroup
-	Processor    *Processor
-	Version      *Version
+
+	// Processor Create a processor, Set properties, Schedule.
+	Processor *Processor
+
+	// Snippet Create a snippet, Move a snippet, Delete a snippet.
+	Snippet *Snippet
+
+	// Version Manage versions of process groups.
+	Version *Version
 }
 
+// NewContext Returns a new context.
 func NewContext(s string) (*Context, error) {
 	ctx := &Context{client: resty.New().SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})}
 	err := ctx.setBaseURL(s)
@@ -46,6 +64,7 @@ func NewContext(s string) (*Context, error) {
 	ctx.Flow = &Flow{context: ctx}
 	ctx.ProcessGroup = &ProcessGroup{context: ctx}
 	ctx.Processor = &Processor{context: ctx}
+	ctx.Snippet = &Snippet{context: ctx}
 	ctx.Version = &Version{context: ctx}
 	return ctx, err
 }
@@ -60,8 +79,10 @@ func (c *Context) setBaseURL(s string) error {
 	return nil
 }
 
+// GetBaseURL Returns a base URL for this Nifi context.
 func (c *Context) GetBaseURL() string { return c.baseURL }
 
+// GetURL Returns a base URL with path.
 func (c *Context) GetURL(p string) (string, error) {
 	u, err := url.Parse(c.baseURL)
 	if err != nil {
@@ -70,7 +91,7 @@ func (c *Context) GetURL(p string) (string, error) {
 
 	b := u.String()
 	if strings.HasSuffix(b, "/") {
-		b = strings.TrimSuffix(b,"/")
+		b = strings.TrimSuffix(b, "/")
 	}
 
 	if strings.HasPrefix(p, "/") {

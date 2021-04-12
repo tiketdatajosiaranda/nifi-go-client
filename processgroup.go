@@ -7,10 +7,13 @@ import (
 	"net/http"
 )
 
+// ProcessGroup Create components, Instantiate a template, Upload a template.
 type ProcessGroup struct {
 	context *Context
 }
 
+// ListProcessGroups Gets all process groups.
+// GET /process-groups/{processGroupID}/process-groups
 func (p *ProcessGroup) ListProcessGroups(processGroupID string) (*models.ProcessGroupsEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/process-groups"
 	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -27,6 +30,8 @@ func (p *ProcessGroup) ListProcessGroups(processGroupID string) (*models.Process
 	return &result, nil
 }
 
+// GetProcessGroup Gets a process group.
+// GET /process-groups/{processGroupID}
 func (p *ProcessGroup) GetProcessGroup(processGroupID string) (*models.ProcessGroupEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s"
 	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -43,6 +48,8 @@ func (p *ProcessGroup) GetProcessGroup(processGroupID string) (*models.ProcessGr
 	return &result, nil
 }
 
+// CreateProcessGroup Creates a process group.
+// POST /process-groups/{processGroupID}/process-groups
 func (p *ProcessGroup) CreateProcessGroup(processGroupID string, body *models.ProcessGroupEntity) (*models.ProcessGroupEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/process-groups"
 	raw, err := p.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -59,6 +66,8 @@ func (p *ProcessGroup) CreateProcessGroup(processGroupID string, body *models.Pr
 	return &result, nil
 }
 
+// UpdateProcessGroup Updates a process group.
+// PUT /process-groups/{processGroupID}
 func (p *ProcessGroup) UpdateProcessGroup(processGroupID string, body *models.ProcessGroupEntity) (*models.ProcessGroupEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s"
 	raw, err := p.context.putRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -75,6 +84,8 @@ func (p *ProcessGroup) UpdateProcessGroup(processGroupID string, body *models.Pr
 	return &result, nil
 }
 
+// DeleteProcessGroup Deletes a process group.
+// DELETE /process-groups/{processGroupID}
 func (p *ProcessGroup) DeleteProcessGroup(processGroupID string, version int64) (*models.ProcessGroupEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s?version=%d&disconnectedNodeAcknowledged=false"
 	raw, err := p.context.deleteRequest(fmt.Sprintf(relURL, processGroupID, version), nil)
@@ -91,6 +102,8 @@ func (p *ProcessGroup) DeleteProcessGroup(processGroupID string, version int64) 
 	return &result, nil
 }
 
+// ListOutputPorts Gets all output ports.
+// GET /process-groups/{processGroupID}/output-ports
 func (p *ProcessGroup) ListOutputPorts(processGroupID string) (*models.OutputPortsEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/output-ports"
 	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -107,6 +120,8 @@ func (p *ProcessGroup) ListOutputPorts(processGroupID string) (*models.OutputPor
 	return &result, nil
 }
 
+// CreateOutputPort Creates an output port.
+// POST /process-groups/{processGroupID}/output-ports
 func (p *ProcessGroup) CreateOutputPort(processGroupID string, body *models.PortEntity) (*models.PortEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/output-ports"
 	raw, err := p.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -123,6 +138,8 @@ func (p *ProcessGroup) CreateOutputPort(processGroupID string, body *models.Port
 	return &result, nil
 }
 
+// ListProcessors Gets all processors.
+// GET /process-groups/{processGroupID}/processors
 func (p *ProcessGroup) ListProcessors(processGroupID string) (*models.ProcessorsEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/processors"
 	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -139,6 +156,8 @@ func (p *ProcessGroup) ListProcessors(processGroupID string) (*models.Processors
 	return &result, nil
 }
 
+// CreateTemplateInstance Instantiates a template.
+// POST /process-groups/{id}/template-instance
 func (p *ProcessGroup) CreateTemplateInstance(processGroupID string, body *models.InstantiateTemplateRequestEntity) (*models.FlowEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/template-instance"
 	raw, err := p.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -155,6 +174,8 @@ func (p *ProcessGroup) CreateTemplateInstance(processGroupID string, body *model
 	return &result, nil
 }
 
+// ListConnections Gets all connections.
+// GET /process-groups/{processGroupID}/connections
 func (p *ProcessGroup) ListConnections(processGroupID string) (*models.ConnectionsEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/connections"
 	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -171,6 +192,8 @@ func (p *ProcessGroup) ListConnections(processGroupID string) (*models.Connectio
 	return &result, nil
 }
 
+// CreateConnection Creates a connection.
+// POST /process-groups/{processGroupID}/connections
 func (p *ProcessGroup) CreateConnection(processGroupID string, body *models.ConnectionEntity) (*models.ConnectionEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/connections"
 	raw, err := p.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -187,6 +210,8 @@ func (p *ProcessGroup) CreateConnection(processGroupID string, body *models.Conn
 	return &result, nil
 }
 
+// GetVariableRegistry Gets a process group's variable registry.
+// GET /process-groups/{processGroupID}/variable-registry
 func (p *ProcessGroup) GetVariableRegistry(processGroupID string) (*models.VariableRegistryEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/variable-registry"
 	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
@@ -195,6 +220,24 @@ func (p *ProcessGroup) GetVariableRegistry(processGroupID string) (*models.Varia
 	}
 
 	result := models.VariableRegistryEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
+
+// CopySnippet Copies a snippet and discards it.
+// POST /process-groups/{processGroupID}/snippet-instance
+func (p *ProcessGroup) CopySnippet(processGroupID string, body *models.CopySnippetRequestEntity) (*models.FlowEntity, error) {
+	const relURL = "/nifi-api/process-groups/%s/snippet-instance"
+	raw, err := p.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.FlowEntity{}
 	err = jsoniter.Unmarshal(raw, &result)
 	if err != nil {
 		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}

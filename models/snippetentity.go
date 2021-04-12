@@ -11,7 +11,7 @@ package models
 
 // SnippetEntity struct for SnippetEntity
 type SnippetEntity struct {
-	Snippet SnippetDto `json:"snippet,omitempty"`
+	Snippet *SnippetDto `json:"snippet,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.
 	DisconnectedNodeAcknowledged bool `json:"disconnectedNodeAcknowledged,omitempty"`
 }

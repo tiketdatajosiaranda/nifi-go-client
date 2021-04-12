@@ -7,10 +7,13 @@ import (
 	"net/http"
 )
 
+// Version Manage versions of process groups.
 type Version struct {
 	context *Context
 }
 
+// SaveProcessGroup Save the Process Group with the given ID.
+// POST /versions/process-groups/{processGroupID}
 func (v *Version) SaveProcessGroup(processGroupID string, body *models.StartVersionControlRequestEntity) (*models.VersionControlInformationEntity, error) {
 	const relURL = "/nifi-api/versions/process-groups/%s"
 	raw, err := v.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -27,6 +30,8 @@ func (v *Version) SaveProcessGroup(processGroupID string, body *models.StartVers
 	return &result, nil
 }
 
+// InitiateProcessGroupUpdateRequest Initiate the Update Request of a Process Group with the given ID.
+// POST /versions/update-requests/process-groups/{processGroupID}
 func (v *Version) InitiateProcessGroupUpdateRequest(processGroupID string, body *models.VersionControlInformationEntity) (*models.VersionedFlowUpdateRequestEntity, error) {
 	const relURL = "/nifi-api/versions/update-requests/process-groups/%s"
 	raw, err := v.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
@@ -43,6 +48,8 @@ func (v *Version) InitiateProcessGroupUpdateRequest(processGroupID string, body 
 	return &result, nil
 }
 
+// GetUpdateRequest Returns the Update Request with the given ID.
+// GET /versions/update-requests/{updateRequestID}
 func (v *Version) GetUpdateRequest(updateRequestID string) (*models.VersionedFlowUpdateRequestEntity, error) {
 	const relURL = "/nifi-api/versions/update-requests/%s"
 	raw, err := v.context.getRequest(fmt.Sprintf(relURL, updateRequestID))
@@ -59,6 +66,8 @@ func (v *Version) GetUpdateRequest(updateRequestID string) (*models.VersionedFlo
 	return &result, nil
 }
 
+// DeleteUpdateRequest Deletes the Update Request with the given ID.
+// DELETE /versions/update-requests/{updateRequestID}
 func (v *Version) DeleteUpdateRequest(updateRequestID string) (*models.VersionedFlowUpdateRequestEntity, error) {
 	const relURL = "/nifi-api/versions/update-requests/%s"
 	raw, err := v.context.deleteRequest(fmt.Sprintf(relURL, updateRequestID), nil)
@@ -75,6 +84,8 @@ func (v *Version) DeleteUpdateRequest(updateRequestID string) (*models.Versioned
 	return &result, nil
 }
 
+// StopVersionProcessGroup Stops version controlling the Process Group with the given ID.
+// DELETE /versions/process-groups/{processGroupID}
 func (v *Version) StopVersionProcessGroup(processGroupID string, version int64) (*models.VersionControlInformationEntity, error) {
 	const relURL = "/nifi-api/versions/process-groups/%s?disconnectedNodeAcknowledged=false&version=%d"
 	raw, err := v.context.deleteRequest(fmt.Sprintf(relURL, processGroupID, version), nil)

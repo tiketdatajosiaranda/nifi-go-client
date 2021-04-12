@@ -7,10 +7,13 @@ import (
 	"net/http"
 )
 
+// Access User authentication and token endpoints.
 type Access struct {
 	context *Context
 }
 
+// GetStatus Gets the status the client's access.
+// GET /access
 func (a *Access) GetStatus() (*models.AccessStatusEntity, error) {
 	const relURL = "/nifi-api/access"
 	u, err := a.context.GetURL(relURL)
@@ -40,12 +43,15 @@ func (a *Access) GetStatus() (*models.AccessStatusEntity, error) {
 	return &result, nil
 }
 
+// NewLogin Try to login to Nifi REST API using username and password.
 func (a *Access) NewLogin(username, password string) error {
 	a.context.userName = username
 	a.context.password = password
 	return a.Login()
 }
 
+// Login Creates a token for accessing the REST API via username/password.
+// POST /access/token
 func (a *Access) Login() error {
 	if a.context.userName == "" || a.context.password == "" {
 		return &HttpError{Code: http.StatusUnauthorized, Err: fmt.Errorf(badCredentialError)}
