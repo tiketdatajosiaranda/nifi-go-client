@@ -228,9 +228,9 @@ func (p *ProcessGroup) GetVariableRegistry(processGroupID string) (*models.Varia
 	return &result, nil
 }
 
-// CopySnippet Copies a snippet and discards it.
+// PasteSnippet Paste copies a snippet and discards it.
 // POST /process-groups/{processGroupID}/snippet-instance
-func (p *ProcessGroup) CopySnippet(processGroupID string, body *models.CopySnippetRequestEntity) (*models.FlowEntity, error) {
+func (p *ProcessGroup) PasteSnippet(processGroupID string, body *models.CopySnippetRequestEntity) (*models.FlowEntity, error) {
 	const relURL = "/nifi-api/process-groups/%s/snippet-instance"
 	raw, err := p.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
 	if err != nil {
