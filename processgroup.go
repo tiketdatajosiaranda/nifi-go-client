@@ -102,6 +102,24 @@ func (p *ProcessGroup) DeleteProcessGroup(processGroupID string, version int64) 
 	return &result, nil
 }
 
+// ListInputPorts Gets all input ports.
+// GET /process-groups/{processGroupID}/input-ports
+func (p *ProcessGroup) ListInputPorts(processGroupID string) (*models.InputPortsEntity, error) {
+	const relURL = "/nifi-api/process-groups/%s/input-ports"
+	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.InputPortsEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
+
 // ListOutputPorts Gets all output ports.
 // GET /process-groups/{processGroupID}/output-ports
 func (p *ProcessGroup) ListOutputPorts(processGroupID string) (*models.OutputPortsEntity, error) {
