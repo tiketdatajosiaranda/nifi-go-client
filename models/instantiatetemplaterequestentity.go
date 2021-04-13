@@ -19,7 +19,7 @@ type InstantiateTemplateRequestEntity struct {
 	TemplateId string `json:"templateId,omitempty"`
 	// The encoding version of the flow snippet. If not specified, this is automatically populated by the node receiving the user request. If the snippet is specified, the version will be the latest. If the snippet is not specified, the version will come from the underlying template. These details need to be replicated throughout the cluster to ensure consistency.
 	EncodingVersion string         `json:"encodingVersion,omitempty"`
-	Snippet         FlowSnippetDto `json:"snippet,omitempty"`
+	Snippet         *FlowSnippetDto `json:"snippet,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.
 	DisconnectedNodeAcknowledged bool `json:"disconnectedNodeAcknowledged,omitempty"`
 }
