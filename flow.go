@@ -49,9 +49,9 @@ func (f *Flow) GetProcessGroup(processGroupID string) (*models.ProcessGroupFlowE
 	return &result, nil
 }
 
-// ToggleScheduleComponents Schedule or un-schedule components in the specified Process Group.
+// ScheduleComponents Schedule or un-schedule components in the specified Process Group.
 // PUT /flow/process-groups/{processGroupID}
-func (f *Flow) ToggleScheduleComponents(processGroupID string, body *models.ScheduleComponentsEntity) (*models.ScheduleComponentsEntity, error) {
+func (f *Flow) ScheduleComponents(processGroupID string, body *models.ScheduleComponentsEntity) (*models.ScheduleComponentsEntity, error) {
 	const relURL = "/nifi-api/flow/process-groups/%s"
 	raw, err := f.context.putRequest(fmt.Sprintf(relURL, processGroupID), body)
 	if err != nil {
