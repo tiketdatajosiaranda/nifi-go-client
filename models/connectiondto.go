@@ -17,9 +17,9 @@ type ConnectionDto struct {
 	VersionedComponentId string `json:"versionedComponentId,omitempty"`
 	// The id of parent process group of this component if applicable.
 	ParentGroupId string         `json:"parentGroupId,omitempty"`
-	Position      PositionDto    `json:"position,omitempty"`
-	Source        ConnectableDto `json:"source,omitempty"`
-	Destination   ConnectableDto `json:"destination,omitempty"`
+	Position      *PositionDto    `json:"position,omitempty"`
+	Source        *ConnectableDto `json:"source,omitempty"`
+	Destination   *ConnectableDto `json:"destination,omitempty"`
 	// The name of the connection.
 	Name string `json:"name,omitempty"`
 	// The index of the bend point where to place the connection label.
