@@ -14,9 +14,9 @@ type CopySnippetRequestEntity struct {
 	// The identifier of the snippet.
 	SnippetId string `json:"snippetId,omitempty"`
 	// The x coordinate of the origin of the bounding box where the new components will be placed.
-	OriginX float64 `json:"originX,omitempty"`
+	OriginX *float64 `json:"originX,omitempty"`
 	// The y coordinate of the origin of the bounding box where the new components will be placed.
-	OriginY float64 `json:"originY,omitempty"`
+	OriginY *float64 `json:"originY,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.
 	DisconnectedNodeAcknowledged bool `json:"disconnectedNodeAcknowledged,omitempty"`
 }
