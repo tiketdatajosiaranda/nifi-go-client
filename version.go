@@ -12,9 +12,10 @@ type Version struct {
 	context *Context
 }
 
-// SaveProcessGroup Save the Process Group with the given ID.
+// StartVersionProcessGroup Save the Process Group with the given ID.
+// Begins version controlling the Process Group with the given ID or commits changes to the Versioned Flow, depending on if the provided VersionControlInformation includes a flowId.
 // POST /versions/process-groups/{processGroupID}
-func (v *Version) SaveProcessGroup(processGroupID string, body *models.StartVersionControlRequestEntity) (*models.VersionControlInformationEntity, error) {
+func (v *Version) StartVersionProcessGroup(processGroupID string, body *models.StartVersionControlRequestEntity) (*models.VersionControlInformationEntity, error) {
 	const relURL = "/nifi-api/versions/process-groups/%s"
 	raw, err := v.context.postRequest(fmt.Sprintf(relURL, processGroupID), body)
 	if err != nil {
