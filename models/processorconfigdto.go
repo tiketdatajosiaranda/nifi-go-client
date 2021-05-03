@@ -12,7 +12,7 @@ package models
 // ProcessorConfigDto struct for ProcessorConfigDto
 type ProcessorConfigDto struct {
 	// The properties for the processor. Properties whose value is not set will only contain the property name.
-	Properties map[string]string `json:"properties,omitempty"`
+	Properties map[string]*string `json:"properties,omitempty"`
 	// Descriptors for the processor's properties.
 	Descriptors map[string]PropertyDescriptorDto `json:"descriptors,omitempty"`
 	// The frequency with which to schedule the processor. The format of the value will depend on th value of schedulingStrategy.
