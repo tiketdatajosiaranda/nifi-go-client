@@ -1,8 +1,6 @@
 package nifi
 
 import (
-	"encoding/json"
-	"fmt"
 	"testing"
 )
 
@@ -150,13 +148,11 @@ func TestFlow_ListProcessGroupProcessors(t *testing.T) {
 	}
 
 	// TEST JOSI PG: a4e53fa7-ace9-10d2-ffff-ffffe93bb3a1
-	p, err := ctx.Flow.ListProcessGroupProcessors("79b209b4-1d59-33a9-ab75-604679552b1c")
+	_, err = ctx.Flow.ListProcessGroupProcessors("a4e53fa7-ace9-10d2-ffff-ffffe93bb3a1")
 	if err != nil {
 		t.Error(err)
 	}
 
-	raw, _ := json.MarshalIndent(p, "", "  ")
-	fmt.Println(string(raw))
 }
 
 func TestFlow_ListControllerServices(t *testing.T) {
@@ -176,6 +172,4 @@ func TestFlow_ListControllerServices(t *testing.T) {
 		t.Error(err)
 	}
 
-	//raw, _ := json.MarshalIndent(p, "", "  ")
-	//fmt.Println(string(raw))
 }

@@ -36,6 +36,9 @@ type Context struct {
 	// Access User authentication and token endpoints.
 	Access *Access
 
+	// Access User authentication and token endpoints.
+	Connection *Connection
+
 	// Flow Get the data flow, Obtain component status, Query history.
 	Flow *Flow
 
@@ -61,6 +64,7 @@ func NewContext(s string) (*Context, error) {
 	}
 
 	ctx.Access = &Access{context: ctx}
+	ctx.Connection = &Connection{context: ctx}
 	ctx.Flow = &Flow{context: ctx}
 	ctx.ProcessGroup = &ProcessGroup{context: ctx}
 	ctx.Processor = &Processor{context: ctx}
@@ -207,7 +211,6 @@ func (c *Context) deleteRequest(relURL string, body interface{}) ([]byte, error)
 	if body != nil {
 		res, err = c.client.R().SetHeader(contentTypeHeader, contentTypeJson).SetBody(body).Delete(u)
 	} else {
-		fmt.Println(u)
 		res, err = c.client.R().SetHeader(contentTypeHeader, contentTypeJson).Delete(u)
 	}
 	if err != nil {

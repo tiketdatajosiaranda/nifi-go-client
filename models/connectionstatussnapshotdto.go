@@ -25,7 +25,7 @@ type ConnectionStatusSnapshotDto struct {
 	DestinationId string `json:"destinationId,omitempty"`
 	// The name of the destination of the connection.
 	DestinationName string                                 `json:"destinationName,omitempty"`
-	Predictions     ConnectionStatusPredictionsSnapshotDto `json:"predictions,omitempty"`
+	Predictions     *ConnectionStatusPredictionsSnapshotDto `json:"predictions,omitempty"`
 	// The number of FlowFiles that have come into the connection in the last 5 minutes.
 	FlowFilesIn int32 `json:"flowFilesIn,omitempty"`
 	// The size of the FlowFiles that have come into the connection in the last 5 minutes.
