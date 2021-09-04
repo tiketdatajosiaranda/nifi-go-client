@@ -207,7 +207,6 @@ func (c *Context) deleteRequest(relURL string, body interface{}) ([]byte, error)
 	if body != nil {
 		res, err = c.client.R().SetHeader(contentTypeHeader, contentTypeJson).SetBody(body).Delete(u)
 	} else {
-		fmt.Println(u)
 		res, err = c.client.R().SetHeader(contentTypeHeader, contentTypeJson).Delete(u)
 	}
 	if err != nil {

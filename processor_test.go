@@ -16,8 +16,8 @@ func TestProcessor_GetProcessor(t *testing.T) {
 		t.Error(err)
 	}
 
-	// GenerateFlowFile: c92537a3-55a6-3666-a07b-a1dce921d986
-	_, err = ctx.Processor.GetProcessor("c92537a3-55a6-3666-a07b-a1dce921d986")
+	// GenerateFlowFile: 38f738bb-5301-12c3-0000-0000025bcb9a
+	_, err = ctx.Processor.GetProcessor("38f738bb-5301-12c3-0000-0000025bcb9a")
 	if err != nil {
 		fmt.Printf("%#v", err)
 		t.Error(err)
