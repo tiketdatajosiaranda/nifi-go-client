@@ -246,6 +246,24 @@ func (p *ProcessGroup) GetVariableRegistry(processGroupID string) (*models.Varia
 	return &result, nil
 }
 
+// GetControllerServices Gets all controller services.
+// GET /flow/process-groups/{id}/controller-services
+func (p *ProcessGroup) GetControllerServices(processGroupID string) (*models.ControllerServicesEntity, error) {
+	const relURL = "/nifi-api/flow/process-groups/%s/controller-services"
+	raw, err := p.context.getRequest(fmt.Sprintf(relURL, processGroupID))
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.ControllerServicesEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
+
 // PasteSnippet Paste copies a snippet and discards it.
 // POST /process-groups/{processGroupID}/snippet-instance
 func (p *ProcessGroup) PasteSnippet(processGroupID string, body *models.CopySnippetRequestEntity) (*models.FlowEntity, error) {

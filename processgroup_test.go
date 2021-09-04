@@ -63,6 +63,25 @@ func TestProcessGroup_ListProcessors(t *testing.T) {
 	}
 }
 
+func TestProcessGroup_GetControllerService(t *testing.T) {
+	ctx, err := NewContext(nifiHost)
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = ctx.Access.NewLogin(nifiUsername, nifiPassword)
+	if err != nil {
+		t.Error(err)
+	}
+
+	// TEST JOSI PG: a4e53fa7-ace9-10d2-ffff-ffffe93bb3a1
+	_, err = ctx.ProcessGroup.GetControllerServices("a4e53fa7-ace9-10d2-ffff-ffffe93bb3a1")
+	if err != nil {
+		fmt.Printf("%#v", err)
+		t.Error(err)
+	}
+}
+
 func TestProcessGroup_GetVariableRegistry(t *testing.T) {
 	ctx, err := NewContext(nifiHost)
 	if err != nil {
