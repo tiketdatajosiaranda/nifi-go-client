@@ -36,8 +36,14 @@ type Context struct {
 	// Access User authentication and token endpoints.
 	Access *Access
 
+	// Access User authentication and token endpoints.
+	Connection *Connection
+
 	// Flow Get the data flow, Obtain component status, Query history.
 	Flow *Flow
+
+	// OutputPort Create an output port, Set remote port access control.
+	OutputPort *OutputPort
 
 	// ProcessGroup Create components, Instantiate a template, Upload a template.
 	ProcessGroup *ProcessGroup
@@ -61,7 +67,9 @@ func NewContext(s string) (*Context, error) {
 	}
 
 	ctx.Access = &Access{context: ctx}
+	ctx.Connection = &Connection{context: ctx}
 	ctx.Flow = &Flow{context: ctx}
+	ctx.OutputPort = &OutputPort{context: ctx}
 	ctx.ProcessGroup = &ProcessGroup{context: ctx}
 	ctx.Processor = &Processor{context: ctx}
 	ctx.Snippet = &Snippet{context: ctx}

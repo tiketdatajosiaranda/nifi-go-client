@@ -11,7 +11,7 @@ package models
 
 // PortRunStatusEntity struct for PortRunStatusEntity
 type PortRunStatusEntity struct {
-	Revision RevisionDto `json:"revision,omitempty"`
+	Revision *RevisionDto `json:"revision,omitempty"`
 	// The run status of the Port.
 	State string `json:"state,omitempty"`
 	// Acknowledges that this node is disconnected to allow for mutable requests to proceed.

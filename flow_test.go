@@ -172,6 +172,4 @@ func TestFlow_ListControllerServices(t *testing.T) {
 		t.Error(err)
 	}
 
-	//raw, _ := json.MarshalIndent(p, "", "  ")
-	//fmt.Println(string(raw))
 }
