@@ -42,6 +42,9 @@ type Context struct {
 	// Flow Get the data flow, Obtain component status, Query history.
 	Flow *Flow
 
+	// FlowFileQueues View queue contents, Download flowfile content, Empty queue.
+	FlowFileQueues *FlowFileQueues
+
 	// OutputPort Create an output port, Set remote port access control.
 	OutputPort *OutputPort
 
@@ -69,6 +72,7 @@ func NewContext(s string) (*Context, error) {
 	ctx.Access = &Access{context: ctx}
 	ctx.Connection = &Connection{context: ctx}
 	ctx.Flow = &Flow{context: ctx}
+	ctx.FlowFileQueues = &FlowFileQueues{context: ctx}
 	ctx.OutputPort = &OutputPort{context: ctx}
 	ctx.ProcessGroup = &ProcessGroup{context: ctx}
 	ctx.Processor = &Processor{context: ctx}
