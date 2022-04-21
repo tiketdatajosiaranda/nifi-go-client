@@ -47,3 +47,21 @@ func (f *FlowFileQueues) GetListingRequest(id,listingId string) (*models.Listing
 
 	return &result, nil
 }
+
+// GetFlowFile Gets a FlowFile from a Connection.
+// GET /flowfile-queues/{id}/flowFiles/{flowfile-uuid}
+func (f *FlowFileQueues) GetFlowFile(id,flowfileId,clusterNodeId string) (*models.FlowFileEntity,error) {
+	const relURL = "/nifi-api/flowfile-queues/%s/flowfiles/%s?clusterNodeId=%s"
+	raw, err := f.context.getRequest(fmt.Sprintf(relURL, id, flowfileId,clusterNodeId))
+	if err != nil {
+		return nil, err
+	}
+
+	result := models.FlowFileEntity{}
+	err = jsoniter.Unmarshal(raw, &result)
+	if err != nil {
+		return nil, &HttpError{Code: http.StatusBadRequest, Err: fmt.Errorf(failedMarshalError)}
+	}
+
+	return &result, nil
+}
